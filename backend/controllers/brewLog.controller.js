@@ -34,3 +34,17 @@ export const addBrewLog = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getAllBrewLogs = async (req, res, next) => {
+  const userId = req.user.id;
+
+  try {
+    const brewLogs = await BrewLog.find({ userId: userId }).sort({
+      isFavorite: -1,
+    });
+
+    res.status(200).json({ reviews: brewLogs });
+  } catch (error) {
+    next(error);
+  }
+};
