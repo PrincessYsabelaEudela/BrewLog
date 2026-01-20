@@ -3,9 +3,13 @@ import { verifyToken } from '../utils/verifyUsers.js';
 import {
   addBrewLog,
   getAllBrewLogs,
+  imageUpload,
 } from '../controllers/brewLog.controller.js';
+import upload from '../multer.js';
 
 const router = express.Router();
+
+router.post('/image-upload', upload.single('image'), imageUpload);
 
 router.post('/add', verifyToken, addBrewLog);
 

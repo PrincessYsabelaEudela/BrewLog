@@ -48,3 +48,24 @@ export const getAllBrewLogs = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getAllTravelStory = async (req, res, next) => {};
+
+export const imageUpload = async (req, res, next) => {
+  try {
+    if (!req.file) {
+      return next(errorHandler(400, 'No image uploaded'));
+    }
+
+    const imageUrl = `http://localhost:3000/uploads/${req.file.filename}`;
+
+    res.status(201).json({ imageUrl });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+// const rootDir = path.join(__dirname, '..');
