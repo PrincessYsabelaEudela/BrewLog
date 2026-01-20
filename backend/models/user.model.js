@@ -3,20 +3,20 @@ import mongoose from 'mongoose';
 const userSchema = new mongoose.Schema(
   {
     username: {
-      tryp: String,
-      requred: true,
+      type: String,
+      required: true,
       unique: true,
     },
 
     email: {
-      tryp: String,
-      requred: true,
+      type: String,
+      required: true,
       unique: true,
     },
 
     password: {
-      tryp: String,
-      requred: true,
+      type: String,
+      required: true,
       unique: true,
     },
   },
