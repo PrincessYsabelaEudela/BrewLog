@@ -24,12 +24,23 @@ mongoose
 
 const app = express();
 
-// Enable CORS for frontend
+// Enable CORS for frontend (development and production)
+const allowedOrigins = [
+  'http://localhost:5173', // Local development
+  process.env.FRONTEND_URL, // Production frontend URL from env
+];
+
 app.use(
   cors({
-    origin: 'http://localhost:5173', //frontend URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow CRUD operations
-    credentials: true, // Allow cookies & authorization headers
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    credentials: true,
   }),
 );
 

@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // Base URL for backend API endpoints
-const BASE_URL = 'http://localhost:3000/api';
+// Uses environment variable for production, falls back to localhost for development
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 /**
  * Configured axios instance with preset settings
