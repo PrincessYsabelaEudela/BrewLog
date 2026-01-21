@@ -139,3 +139,40 @@ export const editBrewLog = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteBrewLog = async (req, res, next) => {
+  const { id } = req.params;
+  const userId = req.user.id;
+
+  try {
+    const brewLog = await BrewLog.findOne({ _id: id, userId: userId });
+
+    if (!brewLog) {
+      next(errorHandler(404, 'Review not found!'));
+    }
+
+    // delete review from the database
+    await brewLog.deleteOne({ _id: id, userId: userId });
+    // Check if the image is not a placeholder before deleting
+    const placeholderImageUrl = `http://localhost:3000/assets/placeholderImage.png`;
+
+    // Extract the filename from the imageUrl
+    const imageUrl = brewLog.imageUrl;
+
+    if (imageUrl && imageUrl !== placeholderImageUrl) {
+      // Extract the filename from the image url
+      const filename = path.basename(imageUrl);
+      const filePath = path.join(rootDir, 'uploads', filename);
+
+      // Check if the file exists before deleting
+      if (file.existsSync(filePath)) {
+        // delete the file
+        await fs.promises.unlink(filePath); // delete the file asynchronously
+      }
+    }
+
+    res.status(200).json({ message: 'Review deleted successfully!' });
+  } catch (error) {
+    next(error);
+  }
+};
