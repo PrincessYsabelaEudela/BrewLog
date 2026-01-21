@@ -76,6 +76,26 @@ const Home = () => {
     }
   };
 
+  // delete review
+  const deleteReview = async (data) => {
+    const reviewId = data._id;
+
+    try {
+      const response = await axiosInstance.delete(
+        '/brewlog/delete-story/' + reviewId,
+      );
+
+      if (response.data && !response.data.error) {
+        toast.success('Log deleted successfully!');
+        setOpenViewModal((prevState) => ({ ...prevState, isShown: false }));
+
+        getAllBrewLogs();
+      }
+    } catch (error) {
+      console.log('Something went wrong. Please try again.');
+    }
+  };
+
   useEffect(() => {
     getAllBrewLogs();
 

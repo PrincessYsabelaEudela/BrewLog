@@ -165,7 +165,7 @@ export const deleteBrewLog = async (req, res, next) => {
       const filePath = path.join(rootDir, 'uploads', filename);
 
       // Check if the file exists before deleting
-      if (file.existsSync(filePath)) {
+      if (fs.existsSync(filePath)) {
         // delete the file
         await fs.promises.unlink(filePath); // delete the file asynchronously
       }
