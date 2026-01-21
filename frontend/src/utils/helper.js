@@ -17,3 +17,16 @@ export const getInitials = (name) => {
 
   return initials.toUpperCase();
 };
+
+export const getEmptyCardMessage = (filterType) => {
+  switch (filterType) {
+    case 'search':
+      return `Oops! No notes found!`;
+
+    case 'date':
+      return `No notes found in the given date range`;
+
+    default:
+      return `Start your journal by capturing your favorite coffee and tea experiences. Click “Create Now” to record each cup, note the flavors, and make it yours.`;
+  }
+};

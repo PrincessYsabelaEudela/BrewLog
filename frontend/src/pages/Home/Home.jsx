@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Modal from 'react-modal';
 import AddEditReview from '../../components/AddEditReview';
 import ViewReview from './ViewReview';
+import { getEmptyCardMessage } from '../../utils/helper';
 
 const Home = () => {
   const [allReviews, setAllReviews] = useState([]);
@@ -133,13 +134,14 @@ const Home = () => {
                   'https://images.pexels.com/photos/5706021/pexels-photo-5706021.jpeg?auto=compress&cs=tinysrgb&w=600'
                 }
                 // message={getEmptyCardMessage(filterType)}
-                // setOpenAddEditModal={() =>
-                //   setOpenAddEditModal({
-                //     isShown: true,
-                //     type: 'add',
-                //     data: null,
-                //   })
-                // }
+                message={`Start your journal by capturing your favorite coffee and tea experiences. Click “Create Now” to record each cup, note the flavors, and make it yours.`}
+                setOpenAddEditModal={() =>
+                  setOpenAddEditModal({
+                    isShown: true,
+                    type: 'add',
+                    data: null,
+                  })
+                }
               />
             )}
           </div>
