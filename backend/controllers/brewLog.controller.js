@@ -176,3 +176,25 @@ export const deleteBrewLog = async (req, res, next) => {
     next(error);
   }
 };
+
+export const updateIsFavourite = async (req, res, next) => {
+  const { id } = req.params;
+  const { isFavorite } = req.body;
+  const userId = req.user.id;
+
+  try {
+    const brewLog = await BrewLog.findOne({ _id: id, userId: userId });
+
+    if (!brewLog) {
+      return next(errorHandler(404, 'Review not found!'));
+    }
+
+    brewLog.isFavorite = isFavorite;
+
+    await brewLog.save();
+
+    res.status(200).json({ story: brewLog, message: 'Updated successfully!' });
+  } catch (error) {
+    next(error);
+  }
+};

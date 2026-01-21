@@ -7,6 +7,7 @@ import {
   deleteImage,
   editBrewLog,
   deleteBrewLog,
+  updateIsFavourite,
 } from '../controllers/brewLog.controller.js';
 import upload from '../multer.js';
 
@@ -23,5 +24,7 @@ router.get('/get-all', verifyToken, getAllBrewLogs);
 router.post('/edit-review/:id', verifyToken, editBrewLog);
 
 router.delete('/delete-story/:id', verifyToken, deleteBrewLog);
+
+router.put('/add-to-favourite/:id', verifyToken, updateIsFavourite);
 
 export default router;
