@@ -100,3 +100,42 @@ export const deleteImage = async (req, res, next) => {
     next(error);
   }
 };
+
+export const editBrewLog = async (req, res, next) => {
+  const { id } = req.params;
+  const { title, review, tags, imageUrl } = req.body;
+  const userId = req.user.id;
+
+  // validate required field
+  if (!title || !review || !tags || !imageUrl) {
+    return next(errorHandler(400, 'All fields are required'));
+  }
+
+  //   convert visited date from milliseconds to Date Object
+  //   const parsedVisitedDate = new Date(parseInt(visitedDate));
+
+  try {
+    const brewLog = await BrewLog.findOne({ _id: id, userId: userId });
+
+    if (!brewLog) {
+      next(errorHandler(404, 'Review not found!'));
+    }
+
+    const placeholderImageUrl = `http://localhost:3000/assets/placeholderImage.png`;
+
+    brewLog.title = title;
+    brewLog.review = review;
+    brewLog.tags = tags;
+    brewLog.imageUrl = imageUrl || placeholderImageUrl;
+    // brewLog.visitedDate = parsedVisitedDate;
+
+    await brewLog.save();
+
+    res.status(200).json({
+      review: brewLog,
+      message: 'Review updated successfully!',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
