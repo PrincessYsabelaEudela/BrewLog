@@ -30,7 +30,7 @@ export const signout = async (req, res, next) => {
     res
       .clearCookie('access_token') // Remove authentication cookie from client
       .status(200)
-      .json('User has been loggedout successfully!');
+      .json('User has been logged out successfully!');
   } catch (error) {
     // Pass any errors to error handler middleware
     next(error);
