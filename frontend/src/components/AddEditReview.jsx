@@ -145,7 +145,7 @@ const AddEditReview = ({ reviewInfo, type, onClose, getAllBrewLogs }) => {
         );
 
         if (response.data) {
-          toast.success('Review image deleted successfully');
+          toast.success('Log image deleted successfully');
 
           setReviewImg(null);
 

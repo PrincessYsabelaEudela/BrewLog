@@ -107,7 +107,7 @@ export const editBrewLog = async (req, res, next) => {
   const userId = req.user.id;
 
   // validate required field
-  if (!title || !review || !tags || !imageUrl) {
+  if (!title || !review || !tags) {
     return next(errorHandler(400, 'All fields are required'));
   }
 
