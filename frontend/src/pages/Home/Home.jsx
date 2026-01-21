@@ -8,10 +8,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import Modal from 'react-modal';
 import AddEditReview from '../../components/AddEditReview';
 import ViewReview from './ViewReview';
-import { getEmptyCardMessage } from '../../utils/helper';
+// import { getEmptyCardMessage } from '../../utils/helper';
 
 const Home = () => {
   const [allReviews, setAllReviews] = useState([]);
+
+  const [searchQuery, setSearchQuery] = useState('');
 
   // console.log(allReviews);
 
@@ -97,6 +99,29 @@ const Home = () => {
     }
   };
 
+  // search story
+  const onSearchStory = async (query) => {
+    try {
+      const response = await axiosInstance.get('/brewlog/search', {
+        params: {
+          query: query,
+        },
+      });
+
+      if (response.data && response.data.reviews) {
+        setAllReviews(response.data.reviews);
+      }
+    } catch (error) {
+      toast.error('Search failed. Please try again.');
+      console.log('Something went wrong. Please try again.');
+    }
+  };
+
+  // Clear search
+  const handleClearSearch = () => {
+    getAllBrewLogs();
+  };
+
   useEffect(() => {
     getAllBrewLogs();
 
@@ -105,7 +130,12 @@ const Home = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        onSearchNote={onSearchStory}
+        handleClearSearch={handleClearSearch}
+      />
 
       <div className="container mx-auto py-10 px-4 md:px-8">
         <div className="flex gap-7">

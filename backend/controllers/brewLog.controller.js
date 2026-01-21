@@ -218,7 +218,7 @@ export const searchBrewLogs = async (req, res, next) => {
     }).sort({ isFavorite: -1 });
 
     res.status(200).json({
-      stories: searchResults,
+      reviews: searchResults,
     });
   } catch (error) {
     next(error);
