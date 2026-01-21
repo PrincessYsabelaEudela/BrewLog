@@ -7,6 +7,7 @@ import { IoMdAdd } from 'react-icons/io';
 import { ToastContainer, toast } from 'react-toastify';
 import Modal from 'react-modal';
 import AddEditReview from '../../components/AddEditReview';
+import ViewReview from './ViewReview';
 
 const Home = () => {
   const [allReviews, setAllReviews] = useState([]);
@@ -16,6 +17,11 @@ const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
     isShown: false,
     type: 'add',
+    data: null,
+  });
+
+  const [openViewModal, setOpenViewModal] = useState({
+    isShown: false,
     data: null,
   });
 
@@ -80,7 +86,7 @@ const Home = () => {
     <>
       <Navbar />
 
-      <div className="container mx-auto py-10">
+      <div className="container mx-[calc(12%-50px)] py-10">
         <div className="flex gap-7">
           <div className="flex-1">
             {allReviews.length > 0 ? (
@@ -140,6 +146,34 @@ const Home = () => {
             setOpenAddEditModal({ isShown: false, type: 'add', data: null });
           }}
           getAllBrewLogs={getAllBrewLogs}
+        />
+      </Modal>
+
+      {/* View review modal */}
+      <Modal
+        isOpen={openViewModal.isShown}
+        onRequestClose={() => {}}
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0,0,0,0.2)',
+            zIndex: 999,
+          },
+        }}
+        appElement={document.getElementById('root')}
+        className="w-[80vw] md:w-[40%] h-[80vh] bg-white rounded-lg mx-auto mt-14 p-5 overflow-y-scroll scrollbar z-50"
+      >
+        <ViewReview
+          reviewInfo={openViewModal.data || null}
+          onClose={() => {
+            setOpenViewModal((prevState) => ({ ...prevState, isShown: false }));
+          }}
+          onEditClick={() => {
+            setOpenViewModal((prevState) => ({ ...prevState, isShown: false }));
+            handleEdit(openViewModal.data || null);
+          }}
+          onDeleteClick={() => {
+            deleteReview(openViewModal.data || null);
+          }}
         />
       </Modal>
 
