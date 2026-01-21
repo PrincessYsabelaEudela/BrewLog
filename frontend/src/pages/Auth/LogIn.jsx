@@ -101,12 +101,12 @@ const Login = () => {
         </div>
 
         {/* Right side: Login form section  */}
-        <div className="w-2/4 h-[80vh] bg-white rounded-r-lg relative p-16 shadow-lg shadow-cyan-200/20 ">
+        <div className="w-2/4 h-[80vh] bg-white rounded-r-lg relative p-16 shadow-lg shadow-accent-200/20 ">
           <form
             className=" h-full flex flex-col justify-center items-center"
             onSubmit={handleSubmit}
           >
-            <h1 className="text-4xl font-semibold mb-10">Login</h1>
+            <h1 className="text-5xl font-semibold mb-10">Welcome Back!</h1>
 
             <input
               type="email"

@@ -1,7 +1,160 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PasswordInput from '../../components/PasswordInput.jsx';
+import { useNavigate } from 'react-router-dom';
+import { validateEmail } from '../../utils/helper.js';
+import axiosInstance from '../../utils/axiosInstance.js';
+import { useDispatch, useSelector } from 'react-redux';
 
+/**
+ * Login Component
+ * Handles user authentication with email and password validation
+ * Manages login state and API communication with backend
+ */
 const SignUp = () => {
-  return <div>SignUp</div>;
+  // Hook for programmatic navigation after successful login
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // State variables for form inputs and error handling
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const { loading, currentUser } = useSelector((state) => state.user);
+
+  /**
+   * Handles form submission for user login
+   * Validates email and password before sending API request
+   */
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+
+    if (!name) {
+      setError('Please enter your name.');
+      return;
+    }
+
+    // Validate email format
+    if (!validateEmail(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    // Validate password is not empty
+    if (!password) {
+      setError('Please enter your password.');
+      return;
+    }
+
+    // Clear previous errors
+    setError(null);
+
+    // Sign up API call with error handling
+    try {
+      // Send sign up credentials to backend
+      const response = await axiosInstance.post('/auth/signup', {
+        username: name,
+        email,
+        password,
+      });
+
+      // Handle successful sign up
+      if (response.data) {
+        navigate('/login');
+      }
+    } catch (error) {
+      // Display backend error message if available
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message);
+      } else {
+        setError('Something went wrong. Please try again.');
+      }
+    }
+  };
+
+  return (
+    // Main login container with background styling
+    <div className="h-screen bg-[#F5EFEA] overflow-hidden relative text-clr">
+      <div className="container h-screen flex items-center justify-center px-20 mx-auto">
+        {/* Left side: Login form section  */}
+        <div className="w-2/4 h-[80vh] bg-white rounded-l-lg relative p-16 shadow-lg shadow-accent-200/20 ">
+          <form
+            className=" h-full flex flex-col justify-center items-center"
+            onSubmit={handleSignUp}
+          >
+            <h1 className="text-5xl font-semibold mb-10">
+              Create Your Account
+            </h1>
+
+            <input
+              type="text"
+              placeholder="Username"
+              className="input-box"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+
+            <input
+              type="email"
+              placeholder="Email"
+              className="input-box"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <PasswordInput
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+
+            {error && <p className="text-red-500 text-xs pb-4">{error}</p>}
+
+            {loading ? (
+              <p className="animate-pulse w-full text-center btn-primary">
+                LOADING...
+              </p>
+            ) : (
+              <button type="submit" className="btn-primary">
+                CREATE ACCOUNT
+              </button>
+            )}
+
+            <p className="text-xs text-slate-500 text-center my-4">
+              Already have an account?
+            </p>
+
+            <button
+              type="submit"
+              className="btn-secondary"
+              onClick={() => navigate('/login')}
+            >
+              LOGIN
+            </button>
+          </form>
+        </div>
+
+        {/* Right side: image */}
+        <div className="w-2/4 h-[80vh] flex items-start bg-[url('https://images.pexels.com/photos/34720282/pexels-photo-34720282.jpeg')] bg-cover bg-center rounded-lg p-10 z-50">
+          <div>
+            <h4 className="text-5xl font-semibold leading-14.5">
+              A Journal for <br /> Every Cup
+            </h4>
+
+            <p className="text-[15px] leading-6 pr-7 mt-4">
+              Record your coffee and tea experiences, one cup at a time.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default SignUp;
