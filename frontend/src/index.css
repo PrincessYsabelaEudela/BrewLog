@@ -1,1 +1,31 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #4b2e2b;
+  --color-secondary: #e6d5c3;
+  --color-accent: #7c9a6d;
+  --text-clr: #2b2b2b;
+}
+
+@layer base {
+  body {
+    @apply bg-[#F5EFEA] text-(--text-clr);
+  }
+}
+
+@layer components {
+  .input-box {
+    @apply w-full text-sm bg-[#F5EFEA] rounded-sm px-5 py-4 mb-4 outline-none;
+  }
+  .input-box:focus {
+    @apply ring-2 ring-primary backdrop-blur-sm;
+  }
+
+  .btn-primary {
+    @apply w-6/12 text-sm font-medium text-white bg-primary p-2.5 rounded-full my-1 hover:bg-secondary hover:text-(--text-clr) cursor-pointer;
+  }
+
+  .btn-secondary {
+    @apply w-6/12 text-sm font-medium text-(--text-clr) bg-secondary p-2.5 rounded-full my-1 hover:bg-primary hover:text-white cursor-pointer;
+  }
+}

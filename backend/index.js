@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import cors from 'cors';
 
 import authRoutes from './routes/auth.route.js';
 import userRoutes from './routes/user.route.js';
@@ -22,6 +23,15 @@ mongoose
   });
 
 const app = express();
+
+// Enable CORS for frontend
+app.use(
+  cors({
+    origin: 'http://localhost:5173', //frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow CRUD operations
+    credentials: true, // Allow cookies & authorization headers
+  }),
+);
 
 app.use(cookieParser());
 
