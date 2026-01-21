@@ -33,7 +33,7 @@ const TagInput = ({ tags, setTags }) => {
             {tags.map((tag, index) => (
               <span
                 key={index}
-                className="flex items-center gap-2 text-sm text-cyan-600 bg-cyan-200/40 px-3 py-1 rounded-sm"
+                className="flex items-center gap-2 text-sm text-accent bg-accent/20 px-3 py-1 rounded-sm"
               >
                 <div className="text-sm"> {tag}</div>
                 <button
@@ -58,10 +58,10 @@ const TagInput = ({ tags, setTags }) => {
           />
 
           <button
-            className="w-8 h-8 flex items-center justify-center rounded-sm border border-cyan-500 hover:bg-cyan-500"
+            className="w-8 h-8 flex items-center justify-center rounded-sm border border-accent hover:bg-accent"
             onClick={addNewTag}
           >
-            <IoMdAdd className="text-2xl text-cyan-500 hover:text-white cursor-pointe" />
+            <IoMdAdd className="text-2xl text-accent hover:text-white cursor-pointer" />
           </button>
         </div>
       </div>

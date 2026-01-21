@@ -34,7 +34,7 @@ const AddEditReview = ({ reviewInfo, type, onClose, getAllBrewLogs }) => {
       });
 
       if (response.data && response.data.review) {
-        toast.success('Review added successfully!');
+        toast.success('Log added successfully!');
 
         getAllBrewLogs();
 
@@ -76,7 +76,7 @@ const AddEditReview = ({ reviewInfo, type, onClose, getAllBrewLogs }) => {
       );
 
       if (response.data && response.data.review) {
-        toast.success('Review updated successfully!');
+        toast.success('Log updated successfully!');
 
         getAllBrewLogs();
 
@@ -160,24 +160,30 @@ const AddEditReview = ({ reviewInfo, type, onClose, getAllBrewLogs }) => {
 
   return (
     <div className="relative">
-      <div className="flex items-center justify-between">
-        <h5 className="text-xl font-medium text-slate-700">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-0">
+        <h5 className="text-lg md:text-xl font-medium text-slate-700">
           {type === 'add' ? 'Add Review' : 'Update Review'}
         </h5>
 
         <div>
-          <div className="flex items-center gap-3 bg-cyan-50/50 p-2 rounded-l-lg">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 bg-secondary/30 p-2 rounded-lg md:rounded-l-lg">
             {type === 'add' ? (
-              <button className="btn-small" onClick={handleAddOrUpdateClick}>
+              <button
+                className="btn-small w-full sm:w-auto"
+                onClick={handleAddOrUpdateClick}
+              >
                 <IoMdAdd className="text-lg" /> ADD REVIEW
               </button>
             ) : (
               <>
-                <button className="btn-small" onClick={handleAddOrUpdateClick}>
+                <button
+                  className="btn-small w-full sm:w-auto"
+                  onClick={handleAddOrUpdateClick}
+                >
                   <MdOutlineUpdate className="text-lg" /> UPDATE REVIEW
                 </button>
 
-                <button className="btn-small btn-delete">
+                <button className="btn-small btn-delete w-full sm:w-auto">
                   <MdOutlineDeleteOutline className="text-lg" /> DELETE REVIEW
                 </button>
               </>
@@ -195,12 +201,12 @@ const AddEditReview = ({ reviewInfo, type, onClose, getAllBrewLogs }) => {
       </div>
 
       <div>
-        <div className="flex flex-1 flex-col gap-2 pt-4">
-          <label className="input-label">TITLE</label>
+        <div className="flex flex-col gap-2 md:gap-4 pt-4">
+          <label className="input-label text-xs">TITLE</label>
 
           <input
             type="text"
-            className="text-2xl text-slate-900 outline-none"
+            className="text-xl md:text-2xl text-slate-900 outline-none"
             placeholder="Drink name"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -213,20 +219,20 @@ const AddEditReview = ({ reviewInfo, type, onClose, getAllBrewLogs }) => {
           />
 
           <div className="flex flex-col gap-2 mt-4">
-            <label className="input-label">REVIEW</label>
+            <label className="input-label text-xs">REVIEW</label>
 
             <textarea
               type="text"
-              className="text-sm text-slate-950 outline-none bg-slate-100 p-2 rounded-sm"
+              className="text-xs md:text-sm text-slate-950 outline-none bg-slate-100 p-2 rounded-sm"
               placeholder="Your Review"
-              rows={10}
+              rows={8}
               value={review}
               onChange={(e) => setReview(e.target.value)}
             />
           </div>
 
           <div className="pt-3">
-            <label className="input-label">TAGS</label>
+            <label className="input-label text-xs">TAGS</label>
 
             <TagInput tags={tags} setTags={setTags} />
           </div>

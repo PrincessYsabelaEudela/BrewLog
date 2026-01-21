@@ -55,8 +55,8 @@ const ImageSelector = ({ image, setImage, handleDeleteImage }) => {
           className="w-full h-55 flex flex-col items-center justify-center gap-4 bg-slate-50 rounded-sm border border-slate-200/50"
           onClick={() => onChooseFile()}
         >
-          <div className="w-14 h-14 flex items-center justify-center bg-cyan-100 rounded-full border border-cyan-100">
-            <BsUpload className="text-3xl font-bold text-cyan-500" />
+          <div className="w-14 h-14 flex items-center justify-center bg-accent/20 rounded-full border border-accent">
+            <BsUpload className="text-3xl font-bold text-accent" />
           </div>
 
           <p className="text-sm text-slate-500">Browse image files to upload</p>

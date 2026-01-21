@@ -86,11 +86,11 @@ const Home = () => {
     <>
       <Navbar />
 
-      <div className="container mx-[calc(12%-50px)] py-10">
+      <div className="container mx-auto py-10 px-4 md:px-8">
         <div className="flex gap-7">
           <div className="flex-1">
             {allReviews.length > 0 ? (
-              <div className="grid grid-cols-4 gap-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {allReviews.map((item) => {
                   return (
                     <ReviewCard
@@ -178,7 +178,7 @@ const Home = () => {
       </Modal>
 
       <button
-        className="w-16 h-16 flex items-center justify-center rounded-full bg-primary hover:bg-accent text-white fixed right-10 bottom-10"
+        className="w-16 h-16 flex items-center justify-center rounded-full bg-primary hover:bg-accent text-white fixed right-10 bottom-10 shadow-lg transition-all duration-200"
         onClick={() => {
           setOpenAddEditModal({ isShown: true, type: 'add', data: null });
         }}

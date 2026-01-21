@@ -7,7 +7,7 @@ const ViewReview = ({ reviewInfo, onClose, onEditClick, onDeleteClick }) => {
     <div className="relative">
       <div className="flex items-center justify-end">
         <div>
-          <div className="flex items-center gap-3 bg-cyan-50/50 p-2 rounded-l-lg">
+          <div className="flex items-center gap-3 bg-secondary/30 p-2 rounded-l-lg">
             <button className="btn-small" onClick={onEditClick}>
               <MdOutlineUpdate className="text-lg" /> UPDATE REVIEW
             </button>
@@ -34,7 +34,7 @@ const ViewReview = ({ reviewInfo, onClose, onEditClick, onDeleteClick }) => {
               {reviewInfo?.tags?.map((item, index) => (
                 <span
                   key={index}
-                  className="flex items-center gap-2 text-sm text-cyan-600 bg-cyan-200/40 px-3 py-1 rounded-sm"
+                  className="flex items-center gap-2 text-sm text-accent bg-accent/20 px-3 py-1 rounded-sm"
                 >
                   {item}
                 </span>

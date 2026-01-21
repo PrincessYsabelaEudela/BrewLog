@@ -78,16 +78,16 @@ const SignUp = () => {
   };
 
   return (
-    // Main login container with background styling
-    <div className="h-screen bg-[#F5EFEA] overflow-hidden relative text-clr">
-      <div className="container h-screen flex items-center justify-center px-20 mx-auto">
-        {/* Left side: Login form section  */}
-        <div className="w-2/4 h-[80vh] bg-white rounded-l-lg relative p-16 shadow-lg shadow-accent-200/20 ">
+    // Main signup container with background styling
+    <div className="min-h-screen bg-[#F5EFEA] overflow-hidden relative">
+      <div className="container h-auto md:h-screen flex flex-col-reverse md:flex-row items-center justify-center px-4 md:px-20 mx-auto py-10 md:py-0">
+        {/* Left side: Signup form section  */}
+        <div className="w-full md:w-2/4 h-auto md:h-[80vh] bg-white rounded-lg md:rounded-l-lg relative p-8 md:p-16 shadow-lg">
           <form
-            className=" h-full flex flex-col justify-center items-center"
+            className="h-full flex flex-col justify-center items-center"
             onSubmit={handleSignUp}
           >
-            <h1 className="text-5xl font-semibold mb-10">
+            <h1 className="text-3xl md:text-5xl font-semibold mb-10">
               Create Your Account
             </h1>
 
@@ -141,13 +141,13 @@ const SignUp = () => {
         </div>
 
         {/* Right side: image */}
-        <div className="w-2/4 h-[80vh] flex items-start bg-[url('https://images.pexels.com/photos/34720282/pexels-photo-34720282.jpeg')] bg-cover bg-center rounded-lg p-10 z-50">
+        <div className="w-full md:w-2/4 h-64 md:h-[80vh] flex items-start bg-[url('https://images.pexels.com/photos/34720282/pexels-photo-34720282.jpeg')] bg-cover bg-center rounded-lg p-6 md:p-10">
           <div>
-            <h4 className="text-5xl font-semibold leading-14.5">
+            <h4 className="text-3xl md:text-5xl font-semibold leading-tight">
               A Journal for <br /> Every Cup
             </h4>
 
-            <p className="text-[15px] leading-6 pr-7 mt-4">
+            <p className="text-sm md:text-[15px] leading-6 pr-7 mt-4">
               Record your coffee and tea experiences, one cup at a time.
             </p>
           </div>
