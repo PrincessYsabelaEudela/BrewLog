@@ -3,6 +3,12 @@ import PasswordInput from '../../components/PasswordInput.jsx';
 import { useNavigate } from 'react-router-dom';
 import { validateEmail } from '../../utils/helper.js';
 import axiosInstance from '../../utils/axiosInstance.js';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from '../../redux/slice/userSlice.js';
 
 /**
  * Login Component
@@ -12,11 +18,14 @@ import axiosInstance from '../../utils/axiosInstance.js';
 const Login = () => {
   // Hook for programmatic navigation after successful login
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // State variables for form inputs and error handling
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  const { loading, currentUser } = useSelector((state) => state.user);
 
   /**
    * Handles form submission for user login
@@ -42,7 +51,7 @@ const Login = () => {
 
     // Login API call with error handling
     try {
-      // dispatch(signInStart());
+      dispatch(signInStart());
 
       // Send login credentials to backend
       const response = await axiosInstance.post('/auth/signin', {
@@ -52,16 +61,14 @@ const Login = () => {
 
       // Handle successful login
       if (response.data) {
-        // dispatch(signInSuccess(response.data));
+        dispatch(signInSuccess(response.data));
         navigate('/');
+      } else {
+        dispatch(signInFailure('An unexpected error occurred!'));
       }
-
-      // else {
-      //   dispatch(signInFailure('An unexpected error occurred!'));
-      // }
     } catch (error) {
       // Handle login errors
-      // dispatch(signInFailure('An unexpected error occurred!'));
+      dispatch(signInFailure('An unexpected error occurred!'));
 
       // Display backend error message if available
       if (
@@ -118,9 +125,15 @@ const Login = () => {
 
             {error && <p className="text-red-500 text-xs pb-4">{error}</p>}
 
-            <button type="submit" className="btn-primary">
-              LOGIN
-            </button>
+            {loading ? (
+              <p className="animate-pulse w-full text-center btn-primary">
+                LOADING...
+              </p>
+            ) : (
+              <button type="submit" className="btn-primary">
+                LOGIN
+              </button>
+            )}
 
             <p className="text-xs text-slate-500 text-center my-4">
               Don't have an account?
