@@ -84,7 +84,7 @@ const Home = () => {
         <div className="flex gap-7">
           <div className="flex-1">
             {allReviews.length > 0 ? (
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-4 gap-12">
                 {allReviews.map((item) => {
                   return (
                     <ReviewCard

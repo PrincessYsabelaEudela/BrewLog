@@ -4,6 +4,8 @@ import { MdOutlineDeleteOutline, MdOutlineUpdate } from 'react-icons/md';
 import ImageSelector from './ImageSelector';
 import axiosInstance from '../utils/axiosInstance';
 import TagInput from './TagInput';
+import { toast } from 'react-toastify';
+import uploadImage from '../utils/uploadImage';
 
 const AddEditReview = ({ reviewInfo, type, onClose, getAllBrewLogs }) => {
   const [title, setTitle] = useState(reviewInfo?.title || '');
@@ -12,6 +14,86 @@ const AddEditReview = ({ reviewInfo, type, onClose, getAllBrewLogs }) => {
   const [tags, setTags] = useState(reviewInfo?.tags || []);
 
   const [error, setError] = useState('');
+
+  const addNewReview = async () => {
+    try {
+      let imageUrl = '';
+
+      // Upload image if present
+      if (reviewImg) {
+        const imgUploadRes = await uploadImage(reviewImg);
+
+        imageUrl = imgUploadRes.imageUrl || '';
+      }
+
+      const response = await axiosInstance.post('/brewlog/add', {
+        title,
+        review,
+        imageUrl: imageUrl || '',
+        tags,
+      });
+
+      if (response.data && response.data.review) {
+        toast.success('Review added successfully!');
+
+        getAllBrewLogs();
+
+        onClose();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateReview = async () => {
+    const reviewId = reviewInfo._id;
+
+    try {
+      let imageUrl = '';
+
+      let postData = {
+        title,
+        review,
+        imageUrl: reviewInfo.imageUrl || '',
+        tags,
+      };
+
+      if (typeof reviewImg === 'object') {
+        // Upload new image
+        const imageUploadRes = await uploadImage(reviewImg);
+
+        imageUrl = imageUploadRes.imageUrl || '';
+
+        postData = {
+          ...postData,
+          imageUrl: imageUrl,
+        };
+      }
+
+      const response = await axiosInstance.post(
+        '/brewlog/edit-review/' + reviewId,
+        postData,
+      );
+
+      if (response.data && response.data.review) {
+        toast.success('Review updated successfully!');
+
+        getAllBrewLogs();
+
+        onClose();
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message);
+      } else {
+        setError('Something went wrong! Please try again.');
+      }
+    }
+  };
 
   const handleAddOrUpdateClick = () => {
     if (!title) {

@@ -17,7 +17,7 @@ const ReviewCard = ({
       <img
         src={imageUrl}
         alt={title}
-        className="w-full h-100 object-cover rounded-lg"
+        className="w-full h-85 object-cover rounded-lg"
         onClick={onClick}
       />
 
