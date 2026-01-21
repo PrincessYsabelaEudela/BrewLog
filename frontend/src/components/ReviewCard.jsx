@@ -11,6 +11,7 @@ const ReviewCard = ({
   onClick,
   onFavouriteClick,
 }) => {
+  console.log(isFavourite);
   return (
     <div className="border border-slate-200 rounded-lg overflow-hidden bg-white hover:shadow-lg hover:shadow-slate-200 transition-all ease-in-out relative cursor-pointer">
       <img

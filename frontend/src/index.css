@@ -28,4 +28,8 @@
   .btn-secondary {
     @apply w-6/12 text-sm font-medium text-(--text-clr) bg-secondary p-2.5 rounded-full my-1 hover:bg-primary hover:text-white cursor-pointer;
   }
+
+  .icon-btn {
+    @apply text-[22px] text-slate-300 cursor-pointer hover:text-accent;
+  }
 }

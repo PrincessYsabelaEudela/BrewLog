@@ -31,19 +31,28 @@ const Home = () => {
     setOpenViewModal({ isShown: true, data });
   };
 
-  const addToFavourite = async (storyData) => {
-    const storyId = storyData._id;
+  const addToFavourite = async (reviewData) => {
+    const reviewId = reviewData._id;
 
     try {
+      // Optimistically update local state immediately for instant UI feedback
+      setAllReviews(
+        allReviews.map((review) =>
+          review._id === reviewId
+            ? { ...review, isFavorite: !review.isFavorite }
+            : review,
+        ),
+      );
+
       const response = await axiosInstance.put(
-        '/brewlog/add-to-favourite/' + storyId,
+        '/brewlog/add-to-favourite/' + reviewId,
         {
-          isFavorite: !storyData.isFavorite,
+          isFavorite: !reviewData.isFavorite,
         },
       );
 
-      if (response.data && response.data.story) {
-        toast.success('Story updated successfully!');
+      if (response.data && response.data.review) {
+        toast.success('Review updated successfully!');
         getAllBrewLogs();
       }
     } catch (error) {
